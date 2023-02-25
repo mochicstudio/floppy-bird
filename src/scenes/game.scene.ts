@@ -8,6 +8,11 @@ class Game extends Phaser.Scene {
 
   preload() {
     setInGameBackground();
+    this.load.image('sky', '/assets/sky.png');
+  }
+
+  create() {
+    this.add.image(0, 0, 'sky').setOrigin(0, 0);
   }
 }
 
