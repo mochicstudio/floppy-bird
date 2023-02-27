@@ -47,3 +47,7 @@ class Game extends Phaser.Scene {
 
 const game = new Game();
 export { game };
+
+// TODO create pipes dynamically and move them from right to left
+// TODO maybe alternate gameplay from left to right
+// TODO pipe velocity, if more score then more speed
