@@ -1,19 +1,19 @@
 import Phaser from 'phaser';
+import values from './config/values.config';
 
 export default {
   type: Phaser.AUTO,
   parent: 'game',
   transparent: true,
   scale: {
-    width: 800,
-    height: 600,
+    width: values.width,
+    height: values.height,
     mode: Phaser.Scale.NONE,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 400 },
       debug: true
     }
   }

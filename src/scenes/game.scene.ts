@@ -1,11 +1,12 @@
 import Phaser from 'phaser';
+import FloppyBird from '../classes/bird';
+import { makePipes, test } from '../classes/pipes';
 import { setInGameBackground } from '../helpers/css.helper';
 
 class Game extends Phaser.Scene {
-  private readonly ONE_SECOND_IN_MILISECONDS: nuber = 1000;
-  private readonly FLAP_VELOCITY: number = 150;
+  private readonly WAIT_TIME_IN_MILISECONDS: nuber = 3000;
+  private readonly FloppyBird: FloopyBir;
 
-  private bird: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   private totalDelta: number = 0;
 
   constructor() { super('Game'); }
@@ -18,36 +19,35 @@ class Game extends Phaser.Scene {
 
   create() {
     this.add.image(0, 0, 'sky').setOrigin(0);
-    this.bird = this.physics.add.sprite(
+    this.FloppyBird = new FloppyBird(this.physics.add.sprite(
       this.sys.game.canvas.width / 2,
       this.sys.game.canvas.height / 2,
-      'bird'
-    ).setOrigin(0);
+      'floppybird'
+    ).setOrigin(0));
   }
 
   update(_time, delta) {
     this.totalDelta += delta;
-    if (this.totalDelta < this.ONE_SECOND_IN_MILISECONDS) return;
+    if (this.totalDelta < this.WAIT_TIME_IN_MILISECONDS) return;
     this.resetTotalDelta();
+    makePipes([
+      this.physics.add.sprite(0, 0, 'pipe').setVisible(false),
+      this.physics.add.sprite(0, 0, 'pipe').setVisible(false)
+    ]);
   }
 
   loadAssets() {
     this.load.image('sky', '/assets/sky.png');
-    this.load.image('bird', '/assets/bird.png');
+    this.load.image('floppybird', '/assets/bird.png');
+    this.load.image('pipe', '/assets/pipe.png');
   }
 
   setListeners() { 
-    this.input.keyboard.addKey('SPACE', true).on('down', () => this.flap());
+    this.input.keyboard.addKey('SPACE', true).on('down', () => this.FloppyBird.flop());
   }
 
   resetTotalDelta() { this.totalDelta = 0; }
-
-  flap() { this.bird.body.velocity.y = -this.FLAP_VELOCITY; }
 }
 
 const game = new Game();
 export { game };
-
-// TODO create pipes dynamically and move them from right to left
-// TODO maybe alternate gameplay from left to right
-// TODO pipe velocity, if more score then more speed
