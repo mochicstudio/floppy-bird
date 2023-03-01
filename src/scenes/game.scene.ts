@@ -1,10 +1,10 @@
 import Phaser from 'phaser';
 import FloppyBird from '../classes/bird';
-import { makePipes, test } from '../classes/pipes';
+import { makePipes } from '../classes/pipes';
 import { setInGameBackground } from '../helpers/css.helper';
 
 class Game extends Phaser.Scene {
-  private readonly WAIT_TIME_IN_MILISECONDS: nuber = 3000;
+  private readonly WAIT_TIME: number = 3000;
   private readonly FloppyBird: FloopyBir;
 
   private totalDelta: number = 0;
@@ -28,12 +28,9 @@ class Game extends Phaser.Scene {
 
   update(_time, delta) {
     this.totalDelta += delta;
-    if (this.totalDelta < this.WAIT_TIME_IN_MILISECONDS) return;
+    if (this.totalDelta < this.WAIT_TIME) return;
     this.resetTotalDelta();
-    makePipes([
-      this.physics.add.sprite(0, 0, 'pipe').setVisible(false),
-      this.physics.add.sprite(0, 0, 'pipe').setVisible(false)
-    ]);
+    makePipes(this.physics.add.group());
   }
 
   loadAssets() {
