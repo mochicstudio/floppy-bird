@@ -31,6 +31,7 @@ class Game extends Phaser.Scene {
     if (this.totalDelta < this.WAIT_TIME) return;
     this.resetTotalDelta();
     makePipes(this.physics.add.group());
+    // TODO pipies should be generated not by time but by distances, do NOT depend on time
   }
 
   loadAssets() {
