@@ -5,7 +5,7 @@ import { setInGameBackground } from '../helpers/css.helper';
 
 class Game extends Phaser.Scene {
   private readonly WAIT_TIME: number = 3000;
-  private readonly FloppyBird: FloopyBir;
+  private FloppyBird!: FloppyBird;
 
   private totalDelta: number = 0;
 
@@ -26,7 +26,7 @@ class Game extends Phaser.Scene {
     ).setOrigin(0));
   }
 
-  update(_time, delta) {
+  update(_time: number, delta: number) {
     this.totalDelta += delta;
     if (this.totalDelta < this.WAIT_TIME) return;
     this.resetTotalDelta();

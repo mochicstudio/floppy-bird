@@ -7,13 +7,12 @@ class Pipes {
   private readonly PIPE_GAP: number = Phaser.Math.Between(...this.PIPE_GAP_RANGE);
   private readonly PIPE_POSITION_RANGE: Array<number> = [20, 580 - this.PIPE_GAP];
   private readonly PIPE_POSITION: number = Phaser.Math.Between(...this.PIPE_POSITION_RANGE);
+  private readonly upperSprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  private readonly lowerSprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   
-  public readonly sprites: any;
+  readonly sprites: Phaser.Physics.Arcade.Group;
 
-  private upperSprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
-  private lowerSprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
-
-  constructor(sprites: any) {
+  constructor(sprites: Phaser.Physics.Arcade.Group) {
     this.sprites = sprites;
     this.upperSprite = this.sprites.create(
       values.outCanvas,
@@ -29,6 +28,6 @@ class Pipes {
   private move() { this.sprites.setVelocityX(this.VELOCITY); }
 }
 
-const makePipes = (sprites: any): Pipes => new Pipes(sprites);
+const makePipes = (sprites: Phaser.Physics.Arcade.Group): Pipes => new Pipes(sprites);
 
 export { makePipes };
